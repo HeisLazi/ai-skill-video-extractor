@@ -107,9 +107,10 @@ def analyze_video(
                     types.Content(
                         role="user",
                         parts=[
-                            types.Part.from_uri(
-                                file_uri=video_url,
-                                mime_type="video/youtube",
+                            types.Part(
+                                file_data=types.FileData(
+                                    file_uri=video_url
+                                )
                             ),
                             types.Part.from_text(text=extraction_prompt),
                         ],
@@ -118,7 +119,6 @@ def analyze_video(
                 config=types.GenerateContentConfig(
                     response_mime_type="application/json",
                     response_schema=VideoAnalysis,
-                    temperature=0.2,
                 ),
             )
             
